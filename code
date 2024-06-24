@@ -1,0 +1,16 @@
+import os
+import zipfile
+
+source_directory = r"C:\Users\pavan_smau2ho\OneDrive\Documents"
+backup_directory = r"C:\Users\pavan_smau2ho\OneDrive"
+backup_file = "archive.zip"
+
+try:
+    with zipfile.ZipFile(os.path.join(backup_directory, backup_file), "w") as zipf:
+        for root, _, files in os.walk(source_directory):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, os.path.relpath(file_path, source_directory))
+    print("Backup successful!")
+except Exception as e:
+    print(f"Backup failed: {str(e)}")
